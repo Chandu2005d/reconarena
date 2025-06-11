@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Reconnaissance - RECON ARENA</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      height: 100vh;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url(tech.gif);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      background: url('tech.gif') no-repeat center center / cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .glass-box {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+    }
+
+    h1,
+    h2 {
+      color: #00ffff;
+      text-shadow: 1px 1px 4px rgba(0, 255, 255, 0.4);
+    }
+
+    p {
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    pre {
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="glass-box">
+      <h1>Active Reconnaissance</h1>
+      <p>
+        Active reconnaissance involves direct interaction with a target system or network to gather information. Unlike
+        passive techniques, active methods are more intrusive and may trigger alerts on intrusion detection systems
+        (IDS). These methods are essential for mapping out services, identifying vulnerabilities, and preparing for
+        penetration testing or ethical hacking.
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Port Scanning</h2>
+      <p>
+        Used to identify open ports and services running on a target system. Tools like <strong>nmap</strong> and
+        <strong>masscan</strong> help gather data about accessible services and possible vulnerabilities.<br><br>
+
+        Below is the default nmap scan and it scans 1000 well known TCP ports with basic info.<br><br>
+
+        nmap [TARGET_IP]<br><br>
+
+        <strong>Port Scanning Options</strong><br><br>
+
+        -p 80 Scan specific port<br>
+        -p 1-65535 Scan all ports<br>
+        -F Fast scan (100 ports only)<br>
+        --top-ports 100 Scan top 100 most popular <br><br>
+
+        <strong>Scan Techniques</strong><br><br>
+
+        -sT TCP Connect scan (useful when not root)<br>
+        -sS Stealth SYN scan (default, requires root)<br>
+        -sU UDP scan<br>
+        -sA ACK scan (firewall mapping)<br>
+        -sN Null scan (no flags — evasion)<br>
+        -sX Xmas scan (weird flags — evasion)<br>
+        -sF FIN scan (evasion technique)<br><br>
+
+        <strong>Target Types</strong><br><br>
+
+        Single IP 192.168.1.1<br>
+        IP Range 192.168.1.1-50<br>
+        Subnet 192.168.1.0/24<br>
+        From File -iL targets.txt<br><br>
+
+        <strong>Nmap Scripting Engine</strong><br><br>
+
+        Nmap includes powerful default and custom scripts located in /usr/share/nmap/scripts/, enabling specialized
+        scans like vulnerability detection, service enumeration, and more using the Nmap Scripting Engine (NSE) for
+        enhanced reconnaissance.<br><br>
+
+        -sC Run default scripts<br>
+        --script vuln Run vulnerability detection scripts<br>
+        --script "http-*" Run only HTTP related scripts<br>
+        --script-args Pass arguments to scripts<br>
+        --script-help=ssl-heartbleed See script details<br><br>
+
+        <strong>Output Formats</strong><br><br>
+
+        -oN output.txt Normal output<br>
+        -oX output.xml XML format<br>
+        -oG output.gnmap Greppable output<br>
+        -oA output Save in all formats (adds .nmap, .xml, .gnmap)<br><br>
+
+        <strong>Stealth and Evasion</strong><br><br>
+
+        -T0 to -T5 Timing template (0 = stealthy, 5 = fast/aggressive)<br>
+        --data-length 50 Add padding to packets<br>
+        --source-port 53 Spoof source port<br>
+        -D RND:10 Use decoys<br>
+        -f Fragment packets<br><br>
+
+        <strong>Firewall Bypass Techniques</strong><br><br>
+
+        -Pn Skip host discovery (treat all as alive)<br>
+        --badsum Send packets with bad checksums<br>
+        --ttl 1 Useful for IDS/IPS evasion<br><br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Service Enumeration</h2>
+      <p>
+        After identifying open ports, this step investigates which specific services and versions are running. For
+        example, detecting an SSH server version can lead to known exploits. Tools: <strong>nmap -sV</strong>,
+        <strong>Netcat</strong>, <strong>Enum4linux</strong>.<br><br>
+        Below is the default Nmap version detection scan which probes known ports to identify service details.<br><br>
+
+        nmap -sV [TARGET_IP]<br><br>
+
+        <strong>Service Enumeration Options</strong><br><br>
+
+        -sV Detect service versions<br>
+        --version-intensity 0-9 Set probing intensity (default: 7)<br>
+        --version-light Lighter, faster detection<br>
+        --version-all Try every single probe<br><br>
+
+        <strong>Commonly Enumerated Services</strong><br><br>
+
+        HTTP(S): nmap -p 80,443 --script http-enum [TARGET_IP]<br>
+        FTP: nmap -p 21 --script ftp-anon,ftp-bounce [TARGET_IP]<br>
+        SSH: nmap -p 22 --script ssh-hostkey,ssh-auth-methods [TARGET_IP]<br>
+        SMB: nmap -p 139,445 --script smb-os-discovery,smb-enum-shares [TARGET_IP]<br>
+        SMTP: nmap -p 25 --script smtp-commands,smtp-enum-users [TARGET_IP]<br><br>
+
+        <strong>Deep Scanning with NSE</strong><br><br>
+
+        Combine service detection with powerful scripts: nmap -sV --script "script-name" [TARGET_IP]<br><br>
+
+        <strong>Use Cases</strong><br><br>
+
+        Find outdated versions<br>
+        Detect misconfigurations<br>
+        Prepare for exploitation using targeted tools<br>
+
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Subdomain Enumeration</h2>
+      <p>
+        Discovering subdomains helps map the attack surface of a web application. Active methods include brute-forcing
+        DNS records using tools like <strong>Sublist3r</strong>, <strong>DNSenum</strong>, or <strong>Amass</strong> in
+        active mode.<br><br>
+        <strong>Amass</strong><br><br>
+
+        Amass is a powerful tool for passive and active subdomain enumeration, scraping, brute-forcing, and DNS
+        resolution.<br><br>
+
+        amass enum -d example.com<br><br>
+
+        -passive Only passive sources (no DNS hits)<br>
+        -active Active probing (DNS brute-force)<br>
+        -brute Enable brute-force mode<br>
+        -o output.txt Save results to a file<br><br>
+
+        <strong>Sublist3r</strong><br><br>
+
+        Sublist3r is a Python-based tool that uses search engines and APIs to find subdomains quickly.<br><br>
+
+        sublist3r -d example.com<br><br>
+
+        -d Target domain<br>
+        -o Output file<br>
+        -p Scan found subdomains for open ports<br>
+        -t Set number of threads (default: 10)<br><br>
+
+        <strong>Tips</strong><br><br>
+
+        When using Amass, use passive enumeration first to avoid detection.<br>
+        Follow up with active brute-force for deeper results.<br>
+        Cross-check results using online platforms like crt.sh or SecurityTrails.<br>
+
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Directory Brute Force</h2>
+      <p>
+        Actively checks for hidden directories or files within a web server using wordlists. Common tools include
+        <strong>Dirb</strong>, <strong>Dirbuster</strong>, <strong>Gobuster</strong>, and <strong>FFUF</strong>.<br><br>
+        <strong>DIRB</strong><br><br>
+
+        dirb is a straightforward brute-forcing tool that uses a wordlist to uncover hidden directories and
+        files.<br><br>
+
+        dirb http://example.com/<br><br>
+
+        dirb [URL] [wordlist] Use a custom wordlist<br>
+        -o result.txt Save output to a file<br>
+        -r Ignore redirects<br>
+        -S Silent mode (less output clutter)<br><br>
+
+        GUI Equivalent: DirBuster<br><br>
+
+        <strong>FFUF</strong><br><br>
+
+        ffuf is a high-speed fuzzer for discovering directories, subdomains, parameters, and more.<br><br>
+
+        ffuf -u http://example.com/FUZZ -w wordlist.txt<br><br>
+
+        -u Target URL with FUZZ placeholder<br>
+        -w Path to wordlist<br>
+        -mc 200 Match only specific response codes (ex: 200 OK)<br>
+        -t Number of threads (default: 40)<br>
+        -o Output results to a file<br>
+        -of Output format (ex: json, html)<br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>SSL/TLS Scanning</h2>
+      <p>
+        Analyzing the security configuration of HTTPS services. Tools like <strong>sslscan</strong>,
+        <strong>testssl.sh</strong>, and <strong>Qualys SSL Labs</strong> help detect weak ciphers, expired
+        certificates, or misconfigurations.<br><br>
+
+        <strong>sslscan</strong><br><br>
+
+        sslscan is a fast and easy-to-use tool that queries a server to detect supported SSL/TLS versions, cipher
+        suites, and certificate information.<br><br>
+
+        sslscan [TARGET_IP_OR_DOMAIN]<br><br>
+
+        This command performs a complete scan, showing:<br><br>
+
+        Supported SSL/TLS protocols (ex: TLS 1.0, 1.1, 1.2, 1.3)<br>
+        Accepted cipher suites and their strength<br>
+        Certificate subject, issuer, validity period<br>
+        Vulnerable SSL versions like SSLv2/SSLv3 (if enabled)<br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Web Application Reconnaissance</h2>
+      <p>
+        This includes fingerprinting web technologies, detecting CMS platforms, and testing for common
+        vulnerabilities.<br>
+        Tools: <strong>WhatWeb</strong>, <strong>Wappalyzer</strong>, <strong>Nikto</strong>.<br><br>
+
+        <strong>WhatWeb</strong><br><br>
+
+        WhatWeb is a command-line tool that identifies web server software, CMS, frameworks, libraries, and
+        more.<br><br>
+
+        whatweb http://example.com<br><br>
+
+        -v Verbose output<br>
+        -a 3 Aggression level (0–3)<br>
+        --log-xml=output.xml Save output in XML<br>
+        --log-json=output.json Save in JSON format<br><br>
+
+        <strong>Wappalyzer</strong><br><br>
+
+        Wappalyzer is a browser extension (and CLI tool) that detects web technologies in use on websites,
+        including:<br><br>
+
+        CMS (ex: WordPress, Joomla)<br>
+        Analytics tools<br>
+        JavaScript frameworks (ex: React, Vue)<br>
+        Web servers and databases<br><br>
+
+        Usually use it as a browser extension (Chrome, Firefox) and also as a CLI via Node.js: npx wappalyzer
+        https://example.com . This is ideal for quick visual tech stack detection.<br><br>
+
+        <strong>Nikto</strong><br><br>
+
+        Nikto performs a comprehensive scan of web servers for dangerous files, misconfigurations, and known
+        vulnerabilities.<br><br>
+
+        nikto -h http://example.com<br><br>
+
+        -h Target host<br>
+        -Tuning Scan types (ex: 1 = interesting files, 4 = XSS)<br>
+        -output Save output to file<br>
+        -ssl Force SSL<br>
+        -Format Output format (ex: csv, xml, html)<br><br>
+
+        Key Features:<br><br>
+
+        Detects insecure files, outdated software, admin panels<br>
+        Checks for default credentials<br>
+        Identifies vulnerable scripts and configurations<br><br>
+
+
+
+      </p>
+    </div>
+
+    <div class="glass-box" style="text-align: center; font-size: 0.9rem; color: #ccc;">
+      <pre>Knowledge is power, and power begins with intelligence.</pre>
+      <pre>Developed by <strong>Chandu Dissanayake</strong></pre>
+    </div>
+  </div>
+</body>
+
+</html>

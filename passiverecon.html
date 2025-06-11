@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passive Reconnaissance - RECON ARENA</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      height: 100vh;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.55),rgba(0, 0, 0, 0.55)), url(tech.gif);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      background: url('tech.gif') no-repeat center center / cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .glass-box {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+    }
+
+    h1,
+    h2 {
+      color: #00ffff;
+      text-shadow: 1px 1px 4px rgba(0, 255, 255, 0.4);
+    }
+
+    p {
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    pre {
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="glass-box">
+      <h1>Passive Reconnaissance</h1>
+      <p>
+        Passive reconnaissance involves collecting information about a target without directly interacting with the
+        target system or network. It uses publicly available sources to build intelligence silently, reducing the risk
+        of detection. This phase is crucial in mapping digital footprints, understanding infrastructure, and planning
+        potential attack vectors.
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>OSINT Framework</h2>
+      <p>
+        A collection of tools and resources for open-source intelligence gathering. It provides access to services for
+        social media analysis, domain research, and people search without active probing.<br><br>
+        <a href="https://osintframework.com/">Access OSINT Framework</a><br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>WHOIS Lookup</h2>
+      <p>
+        WHOIS databases reveal domain registration details such as the registrant's name, email, and organization.
+        Useful for identifying administrative contacts or related domains.<br><br>
+        <a href="https://who.is/">Access WHOIS Lookup</a><br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>DNS Enumeration</h2>
+      <p>
+        Passive DNS methods collect information from public sources or historical records to map subdomains and DNS
+        infrastructure without querying the target directly.<br><br>
+        <a href="https://dnsdumpster.com/">Access DNS Dumpster</a><br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Certificate Transparency Logs</h2>
+      <p>
+        These public logs list SSL/TLS certificates issued by Certificate Authorities. Analysts can find subdomains and
+        infrastructure linked to a domain using tools like <strong>crt.sh</strong>.<br><br>
+        <a href="https://crt.sh/">Access CRT.SH</a><br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Reverse DNS Lookup</h2>
+      <p>
+        Determines the domain name associated with an IP address by checking PTR records. Useful for mapping hosting
+        infrastructure.<br><br>
+        <a href="https://mxtoolbox.com/ReverseLookup.aspx">Access Reverse DNS Lookup</a><br>
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Email Harvesting</h2>
+      <p>
+        The process of finding exposed or published email addresses linked to an organization. Tools:
+        <strong>Hunter.io</strong>, <strong>theHarvester</strong>.<br><br>
+
+        <strong>Hunter.io</strong><br><br>
+
+        Hunter.io is a cloud-based OSINT platform that identifies email addresses related to a domain by crawling the
+        web.<br><br>
+
+        <a href="https://hunter.io">Access Hunter IO</a><br><br>
+
+        <strong>Use Cases</strong><br><br>
+
+        Understanding company email formats.<br>
+        Gathering potential targets.<br>
+        Enhancing OSINT reports with verified emails.<br><br>
+
+        <strong>The Harvester</strong><br><br>
+
+        The Harvester is a built-in tool in Kali Linux for gathering emails, hostnames, subdomains, and more from public
+        sources.<br><br>
+
+        theHarvester -d example.com -b all -f emails<br><br>
+
+        -d specifies the target domain<br>
+        -b sets the source (ex: google, bing, linkedin, hunter, all)<br>
+        -f Saves the results as emails.html and emails.xml in the working directory.<br><br>
+
+        <strong>Use Cases</strong><br><br>
+
+        Quickly collecting all known public emails<br>
+        Performing OSINT on target personnel<br>
+        Identifying emails exposed via search engines or public APIs<br>
+
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Social Media Profiling</h2>
+      <p>
+        Gathering intelligence from social media platforms. This includes employee names, job roles, photos, events, and
+        other contextual data that can be used for phishing or impersonation.
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Public Job Postings</h2>
+      <p>
+        Job listings can reveal the technologies and software used within an organization. For example, a company hiring
+        a “Splunk Engineer” likely uses Splunk internally.
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Metadata Extraction</h2>
+      <p>
+        Publicly available files like PDFs or images may contain metadata such as usernames, software versions,
+        timestamps, and internal paths. Tools: <strong>ExifTool</strong>, <strong>FOCA</strong>.
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Google Dorking</h2>
+      <p>
+        Using advanced Google search operators to find sensitive information like exposed login pages, documents,
+        backups, or misconfigured directories.<br><br>
+
+        Search within a specific website: site:example.com<br>
+        Finds pages related to "login" only on example.com: site:example.com login<br>
+        Find subdomains of a site: site:*.example.com<br>
+        Find specific types of files: filetype:pdf / ext:xls<br>
+        Search keywords in the URL: inurl:admin<br>
+        Search keywords in the body text: intext:"password"<br>
+        Search entered keywords in the admin directory: intitle:"login"<br>
+
+      </p>
+    </div>
+
+    <div class="glass-box">
+      <h2>Network Footprint Analysis</h2>
+      <p>
+        Building a profile of the organization's digital infrastructure from passive data: IP ranges, domains, hosting
+        providers, and cloud services often using tools like <strong>Shodan</strong> or <strong>Censys</strong>.
+      </p>
+    </div>
+
+    <div class="glass-box" style="text-align: center; font-size: 0.9rem; color: #ccc;">
+      <pre>Knowledge is power, and power begins with intelligence.</pre>
+      <pre>Developed by <strong>Chandu Dissanayake</strong></pre>
+    </div>
+  </div>
+</body>
+
+</html>
